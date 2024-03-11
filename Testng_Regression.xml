@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name = "RegressionSuite1">
+	<listeners>
+		<listener class-name="com.SAPFiori.utilities.ExtentReportListener"></listener>
+	</listeners>
+	<test name = "SAPFiori Test">
+   	<parameter name="browser" value="chrome" />
+	<groups>
+	<run>
+		<include name="Regression"></include>
+	</run>
+	</groups>   	
+      <classes>
+	      	<!--class name="com.SAPFiori.Tests.JGLUseTable_TC1"/>-->	      	
+	      	<class name="com.SAPFiori.Tests.JGLUseTiles_Filters_TC2"/>
+      </classes>
+   </test>
+
+</suite>

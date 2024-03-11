@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2024-03-11T13:12:35 MDT" name="RegressionSuite1" finished-at="2024-03-11T13:14:47 MDT" duration-ms="131887">
+    <groups>
+      <group name="Regression">
+        <method signature="JGLUseTiles_Filters_TC2.JGLUseTiles_Filters_test()[pri:1, instance:com.SAPFiori.Tests.JGLUseTiles_Filters_TC2@b3ca52e]" name="JGLUseTiles_Filters_test" class="com.SAPFiori.Tests.JGLUseTiles_Filters_TC2"/>
+      </group> <!-- Regression -->
+    </groups>
+    <test started-at="2024-03-11T13:12:35 MDT" name="SAPFiori Test" finished-at="2024-03-11T13:14:47 MDT" duration-ms="131887">
+      <class name="com.SAPFiori.Tests.JGLUseTiles_Filters_TC2">
+        <test-method is-config="true" signature="loadConfig()[pri:0, instance:com.SAPFiori.Tests.JGLUseTiles_Filters_TC2@b3ca52e]" started-at="2024-03-11T13:12:35 MDT" name="loadConfig" finished-at="2024-03-11T13:12:35 MDT" duration-ms="112" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- loadConfig -->
+        <test-method is-config="true" signature="setup(java.lang.String)[pri:0, instance:com.SAPFiori.Tests.JGLUseTiles_Filters_TC2@b3ca52e]" started-at="2024-03-11T13:12:35 MDT" name="setup" finished-at="2024-03-11T13:12:44 MDT" duration-ms="8789" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[chrome]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method signature="JGLUseTiles_Filters_test()[pri:1, instance:com.SAPFiori.Tests.JGLUseTiles_Filters_TC2@b3ca52e]" started-at="2024-03-11T13:12:44 MDT" name="JGLUseTiles_Filters_test" finished-at="2024-03-11T13:14:47 MDT" duration-ms="123009" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- JGLUseTiles_Filters_test -->
+        <test-method is-config="true" signature="aftersuite()[pri:0, instance:com.SAPFiori.Tests.JGLUseTiles_Filters_TC2@b3ca52e]" started-at="2024-03-11T13:14:47 MDT" name="aftersuite" finished-at="2024-03-11T13:14:47 MDT" duration-ms="16" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- aftersuite -->
+      </class> <!-- com.SAPFiori.Tests.JGLUseTiles_Filters_TC2 -->
+    </test> <!-- SAPFiori Test -->
+  </suite> <!-- RegressionSuite1 -->
+</testng-results>
