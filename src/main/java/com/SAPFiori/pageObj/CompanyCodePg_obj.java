@@ -13,13 +13,13 @@ public class CompanyCodePg_obj extends BaseClass
 	WebElement oSearchField_TXTBx;		
 	
 	@FindBy(id = "accountingDocumentVHDialogFilterBarId-filterItemControl_BASIC-CompanyCode-valueHelpDialog-smartFilterBar-btnBasicSearch-search")
-	WebElement oSearch_BTN;	
+	WebElement oCompanyGo_BTN;	
 	
-	@FindBy(id = "accountingDocumentVHDialogFilterBarId-filterItemControl_BASIC-CompanyCode-valueHelpDialog-table-rowsel0")
-	WebElement oCCCheckBox_ChKBx;	
-
 	@FindBy(id = "accountingDocumentVHDialogFilterBarId-filterItemControl_BASIC-CompanyCode-valueHelpDialog-ok-BDI-content")
 	WebElement oOK_BTN;	
+	
+	@FindBy(id = "accountingDocumentVHDialogFilterBarId-filterItemControl_BASIC-CompanyCode-valueHelpDialog-table-rowsel0")
+	WebElement oRow1ChBox_ChkBx;	
 				  
 	
 	//initialize the page
@@ -28,24 +28,24 @@ public class CompanyCodePg_obj extends BaseClass
 		PageFactory.initElements(getDriver(), this);
 	}	
 	
-	public void type_SearchField(String srchData)
+	public void type_CompanySearchTxtBx(String srchData)
 	{
 		AUTActions.type(oSearchField_TXTBx, srchData);
 	}	
-	public void click_SearchBTN()
+	public void click_CompanyGoBtn()
 	{
-		AUTActions.click(getDriver(), oSearch_BTN, "Button");
+		AUTActions.click(oCompanyGo_BTN, "CompanyGoBtn");
 
 	}
-	public void click_CCCheckBox()
+	public void click_Row1ChBoxChkBx()
 	{
-		AUTActions.click(getDriver(), oCCCheckBox_ChKBx, "CheckBox");
+		AUTActions.click(oRow1ChBox_ChkBx, "Row1ChBoxChkBx");
 
 	}	
 
 	public void click_OKBtn()
 	{
-		AUTActions.click(getDriver(), oOK_BTN, "Button");
+		AUTActions.click(oOK_BTN, "OKBtn");
 
 	}	
 	

@@ -9,6 +9,9 @@ import com.SAPFiori.BaseClass.BaseClass;
 
 public class DisplayJournalEntriesTacct_obj extends BaseClass
 {
+	@FindBy(xpath = "application-AccountingDocument-impact-component---main--ColumnListItemADId-application-AccountingDocument-impact-component---main--AccountingDocumentsListId-0-selectMulti-CbBg")
+	WebElement olistPanel_CHXBx;
+	
 	@FindBy(xpath = "//span[@id='application-AccountingDocument-impact-component---main--TAccountAccountsGroupId-application-AccountingDocument-impact-component---main--tAccountPanelId-0-sum']")
 	WebElement odebitAmount_LBL;
 	//  span[@id='application-AccountingDocument-impact-component---main--TAccountAccountsGroupId-application-AccountingDocument-impact-component---main--tAccountPanelId-0-sum']
@@ -45,18 +48,18 @@ public class DisplayJournalEntriesTacct_obj extends BaseClass
 	}		
 	public void click_goBtn()
 	{
-		AUTActions.click(getDriver(), oGo_BTN, "oGo_BTN");
+		AUTActions.click(oGo_BTN, "oGo_BTN");
 
 	}
 	
 	public void click_JournalEntryFilterBtn()
 	{
-		AUTActions.click(getDriver(), oJournalEntryFilter_BTN, "oJournalEntryFilter_BTN");
+		AUTActions.click(oJournalEntryFilter_BTN, "oJournalEntryFilter_BTN");
 
 	}	
 	public void click_TableIcon_Btn()
 	{
-		AUTActions.click(getDriver(), oTableIcon_BTN, "oTableIcon_BTN");
+		AUTActions.click(oTableIcon_BTN, "oTableIcon_BTN");
 
 	}
 	

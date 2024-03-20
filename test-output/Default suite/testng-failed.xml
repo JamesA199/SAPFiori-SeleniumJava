@@ -3,14 +3,14 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="com.SAPFiori.Tests.JGLUseTiles_Filters_TC2">
+      <class name="com.SAPFiori.Tests.SupplierInvoice_TC4">
         <methods>
           <include name="aftersuite"/>
-          <include name="JGLUseTiles_Filters_test"/>
           <include name="loadConfig"/>
+          <include name="SICreate_test"/>
           <include name="setup"/>
         </methods>
-      </class> <!-- com.SAPFiori.Tests.JGLUseTiles_Filters_TC2 -->
+      </class> <!-- com.SAPFiori.Tests.SupplierInvoice_TC4 -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

@@ -29,7 +29,7 @@ public class PasswordUserPg_obj extends BaseClass
 	public void click_Signin_BTN()
 	{
 		System.out.println("click_Signin_BTN");
-		AUTActions.click(getDriver(), oSignin_BTN, "Button");
+		AUTActions.click( oSignin_BTN, "Button");
 
 	}	
 }

@@ -92,7 +92,7 @@
               <div class="suite-section-content">
                 <ul>
                   <li>
-                    <span class="method-stats">1 method,   1 passed</span>
+                    <span class="method-stats">2 methods,   2 passed</span>
                   </li>
                   <li>
                     <span class="method-list-title passed">Passed methods</span>
@@ -103,7 +103,12 @@
                     <div class="method-list-content passed suite-RegressionSuite1">
                       <span>
                         <img src="passed.png" width="3%"/>
-                        <a href="#" panel-name="suite-RegressionSuite1" title="com.SAPFiori.Tests.JGLUseTiles_Filters_TC2" class="method navigator-link" hash-for-method="JGLUseTiles_Filters_test">JGLUseTiles_Filters_test</a> <!-- method navigator-link -->
+                        <a href="#" panel-name="suite-RegressionSuite1" title="com.SAPFiori.Tests.JGLAccountingDocument_TC2" class="method navigator-link" hash-for-method="JEDocumentImpactValidateTotals_test">JEDocumentImpactValidateTotals_test</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-RegressionSuite1" title="com.SAPFiori.Tests.JGLAccountingDocument_TC2" class="method navigator-link" hash-for-method="JGLUseTiles_Filters_test">JGLUseTiles_Filters_test</a> <!-- method navigator-link -->
                       </span>
                       <br/>
                     </div> <!-- method-list-content passed suite-RegressionSuite1 -->
@@ -121,9 +126,16 @@
           <div class="suite-RegressionSuite1-class-passed">
             <div class="main-panel-header rounded-window-top">
               <img src="passed.png"/>
-              <span class="class-name">com.SAPFiori.Tests.JGLUseTiles_Filters_TC2</span>
+              <span class="class-name">com.SAPFiori.Tests.JGLAccountingDocument_TC2</span>
             </div> <!-- main-panel-header rounded-window-top -->
             <div class="main-panel-content rounded-window-bottom">
+              <div class="method">
+                <div class="method-content">
+                  <a name="JEDocumentImpactValidateTotals_test">
+                  </a> <!-- JEDocumentImpactValidateTotals_test -->
+                  <span class="method-name">JEDocumentImpactValidateTotals_test</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
               <div class="method">
                 <div class="method-content">
                   <a name="JGLUseTiles_Filters_test">
@@ -154,7 +166,7 @@
       &lt;/run&gt;
     &lt;/groups&gt;
     &lt;classes&gt;
-      &lt;class name=&quot;com.SAPFiori.Tests.JGLUseTiles_Filters_TC2&quot;/&gt;
+      &lt;class name=&quot;com.SAPFiori.Tests.JGLAccountingDocument_TC2&quot;/&gt;
     &lt;/classes&gt;
   &lt;/test&gt; &lt;!-- SAPFiori Test --&gt;
 &lt;/suite&gt; &lt;!-- RegressionSuite1 --&gt;
@@ -182,6 +194,10 @@
               <span class="test-group-name">Regression</span>
               <br/>
               <div class="method-in-group">
+                <span class="method-in-group-name">JEDocumentImpactValidateTotals_test</span>
+                <br/>
+              </div> <!-- method-in-group -->
+              <div class="method-in-group">
                 <span class="method-in-group-name">JGLUseTiles_Filters_test</span>
                 <br/>
               </div> <!-- method-in-group -->
@@ -202,11 +218,15 @@ data.addColumn('number', 'Number');
 data.addColumn('string', 'Method');
 data.addColumn('string', 'Class');
 data.addColumn('number', 'Time (ms)');
-data.addRows(1);
+data.addRows(2);
 data.setCell(0, 0, 0)
 data.setCell(0, 1, 'JGLUseTiles_Filters_test')
-data.setCell(0, 2, 'com.SAPFiori.Tests.JGLUseTiles_Filters_TC2')
-data.setCell(0, 3, 123009);
+data.setCell(0, 2, 'com.SAPFiori.Tests.JGLAccountingDocument_TC2')
+data.setCell(0, 3, 91165);
+data.setCell(1, 0, 1)
+data.setCell(1, 1, 'JEDocumentImpactValidateTotals_test')
+data.setCell(1, 2, 'com.SAPFiori.Tests.JGLAccountingDocument_TC2')
+data.setCell(1, 3, 84868);
 window.suiteTableData['RegressionSuite1']= { tableData: data, tableDiv: 'times-div-RegressionSuite1'}
 return data;
 }
@@ -237,22 +257,38 @@ return data;
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <div class="chronological-class">
-              <div class="chronological-class-name">com.SAPFiori.Tests.JGLUseTiles_Filters_TC2</div> <!-- chronological-class-name -->
+              <div class="chronological-class-name">com.SAPFiori.Tests.JGLAccountingDocument_TC2</div> <!-- chronological-class-name -->
               <div class="configuration-suite before">
                 <span class="method-name">loadConfig</span>
                 <span class="method-start">0 ms</span>
               </div> <!-- configuration-suite before -->
               <div class="configuration-method before">
                 <span class="method-name">setup(chrome)</span>
-                <span class="method-start">201 ms</span>
+                <span class="method-start">593 ms</span>
               </div> <!-- configuration-method before -->
               <div class="test-method">
                 <span class="method-name">JGLUseTiles_Filters_test</span>
-                <span class="method-start">8990 ms</span>
+                <span class="method-start">8179 ms</span>
               </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown(chrome)</span>
+                <span class="method-start">99344 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setup(chrome)</span>
+                <span class="method-start">99478 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">JEDocumentImpactValidateTotals_test</span>
+                <span class="method-start">107459 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown(chrome)</span>
+                <span class="method-start">192327 ms</span>
+              </div> <!-- configuration-method after -->
               <div class="configuration-suite after">
                 <span class="method-name">aftersuite</span>
-                <span class="method-start">132149 ms</span>
+                <span class="method-start">192633 ms</span>
               </div> <!-- configuration-suite after -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->

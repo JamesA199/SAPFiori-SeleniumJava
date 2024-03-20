@@ -27,21 +27,21 @@ public class SelectJournalEntryPg_obj extends BaseClass
 		PageFactory.initElements(getDriver(), this);
 	}	
 	
-	public void click_JournalEntryFilterBtn()
+	public void click_CompanyCodeFilterBtn()
 	{
-		AUTActions.click(getDriver(), oCompanyCodeFilter_BTN, "oCompanyCodeFilter_BTN");
+		AUTActions.click(oCompanyCodeFilter_BTN, "oCompanyCodeFilter_BTN");
 
 	}
 
-	public void click_Go_Btn()
+	public void click_GoBtn()
 	{
-		AUTActions.click(getDriver(), oGo_BTN, "oGo_BTN");
+		AUTActions.click(oGo_BTN, "Go_BTN");
 
 	}	
 
 	public void click_Ok_Btn()
 	{
-		AUTActions.click(getDriver(), oOk_BTN, "oOk_BTN");
+		AUTActions.click(oOk_BTN, "oOk_BTN");
 
 	}		
 	

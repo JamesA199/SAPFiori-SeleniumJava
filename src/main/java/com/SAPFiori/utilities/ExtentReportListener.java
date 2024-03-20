@@ -2,7 +2,7 @@ package com.SAPFiori.utilities;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
+import java.text.*;
 import java.util.Date;
 
 import org.openqa.selenium.TakesScreenshot;
@@ -58,7 +58,7 @@ public class ExtentReportListener  implements ITestListener{
 
 		test = reports.startTest(result.getMethod().getMethodName());
 		test.log(LogStatus.INFO, result.getMethod().getMethodName());
-		AUTActions.LogIt(null, "*BEGIN test "+result.getMethod().getMethodName()+"*", "STARTTC");
+		AUTActions.LogIt("*BEGIN test "+result.getMethod().getMethodName()+"*", "STARTTC", "");
 		
 		//System.out.println(result.getTestClass().getTestName());
 		//System.out.println(result.getMethod().getMethodName());
@@ -66,15 +66,16 @@ public class ExtentReportListener  implements ITestListener{
 
 	public void onTestSuccess(ITestResult result) {
 		test.log(LogStatus.PASS, "Test is pass");
-		AUTActions.LogIt(null, "*END test "+result.getMethod().getMethodName()+"*", "ENDTC");
+		AUTActions.LogIt("*END test "+result.getMethod().getMethodName()+"*", "ENDTC", "");
 
 	}
 
 	public void onTestFailure(ITestResult result) {
-		test.log(LogStatus.FAIL, "Test is fail");
+		test.log(LogStatus.FAIL, "Test has failed");
 		try {
 			//test.addScreenCapture(ElementActions.capture(BaseClass.getDriver()));
 			test.log(LogStatus.FAIL,test.addScreenCapture(AUTActions.capture(BaseClass.getDriver(), result.getMethod().getMethodName())));	
+			BaseClass.failCNT++;
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -94,7 +95,8 @@ public class ExtentReportListener  implements ITestListener{
 
 	public void onStart(ITestContext context) 
 	{
-		String timeStamp1 = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss").format(new Date());//time stamp
+		//String timeStamp1 = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss").format(new Date());//time stamp
+		String timeStamp1 = AUTActions.randomeNum(4)+AUTActions.randomestring(4);
 		System.out.println(ReportLocation + "  ReportLocation");
 		reports = new ExtentReports(ReportLocation + "ExtentReport-"+timeStamp1+".html");
 		test = reports.startTest("");
@@ -104,7 +106,7 @@ public class ExtentReportListener  implements ITestListener{
 	public void onFinish(ITestContext context) {
 		String testname = context.getName();
 		//String Suitename = context.getSuite();
-		AUTActions.LogIt(null, "*END testNG test: "+testname+", Suitename: "+context.getSuite()+"*", "ENDTC");
+		AUTActions.LogIt("*END testNG test: "+testname+", Suitename: "+context.getSuite()+"*", "ENDTC", "");
 		reports.endTest(test);
 		reports.flush();
 

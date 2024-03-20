@@ -13,8 +13,10 @@
 	</run>
 	</groups>   	
       <classes>
-	      	<!--class name="com.SAPFiori.Tests.JGLUseTable_TC1"/>-->	      	
-	      	<class name="com.SAPFiori.Tests.JGLUseTiles_Filters_TC2"/>
+	      	<!--class name="com.SAPFiori.Tests.JGLUseTable_TC1"/>  	-->
+	      	<class name="com.SAPFiori.Tests.JGLAccountingDocument_TC2"/> 
+	      	<!--class name="com.SAPFiori.Tests.AOPayables_TC3"/> -->
+	        <!--class name="com.SAPFiori.Tests.SupplierInvoice_TC4"/>-->
       </classes>
    </test>
 

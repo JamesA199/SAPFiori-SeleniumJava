@@ -30,7 +30,7 @@ public class SignInUserPg_obj extends BaseClass
 	
 	public PasswordUserPg_obj click_continueBtn()
 	{
-		AUTActions.click(getDriver(), oContinue_Btn, "Button");
+		AUTActions.click(oContinue_Btn, "Button");
     	
 		return new PasswordUserPg_obj();
 	}		

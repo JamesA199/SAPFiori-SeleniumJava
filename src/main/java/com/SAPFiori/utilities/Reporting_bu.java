@@ -4,7 +4,7 @@ package com.SAPFiori.utilities;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
+import java.text.*;
 import java.util.Date;
 
 import org.apache.commons.io.FileUtils;
@@ -15,6 +15,7 @@ import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.TestListenerAdapter;
 
+import com.SAPFiori.AUTActions.AUTActions;
 //import com.WebShopDemo.ActionDriver.Action;
 import com.SAPFiori.BaseClass.BaseClass;
 import com.aventstack.extentreports.ExtentReports;
@@ -91,7 +92,8 @@ public class Reporting_bu extends TestListenerAdapter
 		logger.log(Status.FAIL,MarkupHelper.createLabel(tr.getName(),ExtentColor.RED)); // send the passed information to the report with GREEN color highlighted
 		logger.log(Status.INFO, tr.getThrowable()); //log the error*/
 		
-		String timeStamp1 = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss").format(new Date());//time stamp
+		//String timeStamp1 = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss").format(new Date());//time stamp
+		String timeStamp1 = AUTActions.randomeNum(4)+AUTActions.randomestring(4);
 		logger1=extent1.createTest("Test: "+tr.getMethod()); // create new entry in the report. add the name of the test case and the class\method (sub-test)
 		//logger1=extent.createTest(tr.getName()); // create new entry in the report. add the name of the test case and the class\method (sub-test)
 		logger1.log(Status.FAIL,MarkupHelper.createLabel(tr.getName(),ExtentColor.RED)); // send the passed information to the report with GREEN color highlighted

@@ -19,9 +19,10 @@ public class TAccountViewPg_obj extends BaseClass
 	@FindBy(id = "searchFieldInShell-input-content")
 	WebElement oSearchAppsOuter_TXTBx;		
 	
-	@FindBy(id = "searchFieldInShell-button-img")
-	WebElement oSearchButton_BTN;
-	
+	@FindBy(id = "searchFieldInShell-button-inner")
+	WebElement oSearch_BTN;
+	//searchFieldInShell-button-img
+
 	@FindBy(xpath = "//*[contains(text(), 'Accounts Payable Overview')]")
 	WebElement oAccountsPayableOverview_Tile;
 	
@@ -44,25 +45,25 @@ public class TAccountViewPg_obj extends BaseClass
 
 	public void click_xIconBtn()
 	{
-		AUTActions.click(getDriver(), oXIcon_BTN, "XIcon_BTN");
+		AUTActions.click(oXIcon_BTN, "XIcon_BTN");
 
 	}	
 	
 	public void click_searchAppsField()
 	{
-		AUTActions.click(getDriver(), oSearchApps_TXTBx, "SearchApps_TXTBx");
+		AUTActions.click(oSearchApps_TXTBx, "SearchApps_TXTBx");
 
 	}	
 	
 	public void mouseHoverSearchAppsField()
 	{
-		AUTActions.explicitWait(getDriver(), oSearchAppsOuter_TXTBx, 60);
-		AUTActions.mouseHoverByJavaScript(oSearchApps_TXTBx, "SearchApps_TXTBx");
+		AUTActions.explicitWait(oSearchAppsOuter_TXTBx, 60);
+		AUTActions.mouseHoverByJavaScript(oSearch_BTN, "Search_BTN");
 	}	
 	
 	public void waitSearchAppsField()
 	{
-		AUTActions.explicitWait(getDriver(), oSearchAppsOuter_TXTBx, 60);
+		AUTActions.explicitWait(oSearchAppsOuter_TXTBx, 60);
 		System.out.println("wait for Search Apps Field");
 	}		
 	
@@ -71,30 +72,30 @@ public class TAccountViewPg_obj extends BaseClass
 		AUTActions.type(oSearchApps_TXTBx, sText);
 	}	
 
-	public void click_searchButton()
+	public void click_searchBtn()
 	{
-		AUTActions.click(getDriver(), oSearchButton_BTN, "SearchButton_BTN");
+		AUTActions.click(oSearch_BTN, "SearchButton_BTN");
 
 	}		
 	
 	public void click_AccountsPayableOverview()
 	{
-		AUTActions.click(getDriver(), oAccountsPayableOverview_Tile, "AccountsPayableOverview_Tile");
+		AUTActions.click(oAccountsPayableOverview_Tile, "AccountsPayableOverview_Tile");
 	}	
 	
 	public void click_DisplayLineItemsGL()
 	{
-		AUTActions.click(getDriver(), oDisplayLineItemsGL_Tile, "DisplayLineItemsGL_Tile");
+		AUTActions.click(oDisplayLineItemsGL_Tile, "DisplayLineItemsGL_Tile");
 
 	}			
 	public void click_StatementofChange()
 	{
-		AUTActions.click(getDriver(), oStatementofChanges_Tile, "StatementofChanges_Tile");
+		AUTActions.click(oStatementofChanges_Tile, "StatementofChanges_Tile");
 
 	}		
 	public void click_DisplayJournalEntriesTAccountView()
 	{
-		AUTActions.click(getDriver(), oDisplayJournalEntriesTAccountView_Tile, "DisplayJournalEntriesTAccountView_Tile");
+		AUTActions.click(oDisplayJournalEntriesTAccountView_Tile, "DisplayJournalEntriesTAccountView_Tile");
 
 	}	
 }

@@ -33,7 +33,7 @@ public class JGLUseTable_TC1 extends BaseClass
 	CompanyCodePg_obj companyCodePg_obj;
 	
 	@Test(groups = {"Regression"}, enabled=true, priority = 1)
-	public void JGLUseTable_test() throws Throwable
+	public void JEDocumentImpactValidateTotals_test() throws Throwable
 	{
 
 		signInUserPg_Obj=new SignInUserPg_obj();	
@@ -43,26 +43,8 @@ public class JGLUseTable_TC1 extends BaseClass
 		selectJournalEntryPg_obj=new SelectJournalEntryPg_obj();
 		companyCodePg_obj=new CompanyCodePg_obj();
 		
-		String title = getDriver().getTitle();
-		System.out.println(title);
+		AUTBusinessFlows.LoginDyn365();
 		
-		signInUserPg_Obj.type_userName("James.Anderson99@shaw.ca");
-		signInUserPg_Obj.click_continueBtn();
-		System.out.println("Waiting...");
-		Thread.sleep(15000);
-		byte[] decoded = Base64.getDecoder().decode("Wm4wMHB5OTkh");
-		passwordUserPg_Obj.type_pWord(new String(decoded));
-		passwordUserPg_Obj.click_Signin_BTN();
-		tAccountViewPg_obj.waitSearchAppsField();
-		Thread.sleep(10000);
-		
-		Actions action = new Actions(getDriver());
-		action.sendKeys(Keys.ESCAPE).build().perform();
-		System.out.println("escape pop up dialog");
-		Thread.sleep(3000);
-		//tAccountViewPg_obj.mouseHoverSearchAppsField();		
-
-		//driver.findElement(By.xpath("//span[text()='Cash Discount Utilization']")).click();
 		List<WebElement> allElements = getDriver().findElements(By.xpath("//*[contains(text(), 'Cash Discount')]"));
 		
 		if( allElements.size() > 0)
@@ -78,27 +60,25 @@ public class JGLUseTable_TC1 extends BaseClass
 			System.out.println("No tiles found for Cash Discount.");
 		}
 		
-		//AUTBusinessFlows.srchforApp("General Ledger");
-		
 		AUTBusinessFlows.openAppbyURL("AccountingDocument-impact");
 
 		displayJournalEntriesTacct_obj.click_JournalEntryFilterBtn();		
 		
-		selectJournalEntryPg_obj.click_JournalEntryFilterBtn();
+		selectJournalEntryPg_obj.click_CompanyCodeFilterBtn();
 		
-		companyCodePg_obj.type_SearchField("1710");
+		companyCodePg_obj.type_CompanySearchTxtBx("1710");
 		
-		companyCodePg_obj.click_SearchBTN();
-				
-		//companyCodePg_obj.click_CCCheckBox();
+		companyCodePg_obj.click_CompanyGoBtn();
 		Thread.sleep(1000);
-
-		getDriver().findElement(By.id("accountingDocumentVHDialogFilterBarId-filterItemControl_BASIC-CompanyCode-valueHelpDialog-table-rowsel0")).click();
+		companyCodePg_obj.click_Row1ChBoxChkBx(); //click on the 1st row checkbox
+	
+		//getDriver().findElement(By.id("accountingDocumentVHDialogFilterBarId-filterItemControl_BASIC-CompanyCode-valueHelpDialog-table-rowsel0")).click();
+		
 		Thread.sleep(1000);
 		companyCodePg_obj.click_OKBtn();
 		selectJournalEntryPg_obj.type_FiscalYrTxtBx("2024");
 		
-		selectJournalEntryPg_obj.click_Go_Btn();
+		selectJournalEntryPg_obj.click_GoBtn();
 		
 		Thread.sleep(3000);
 		AUTBusinessFlows.srchIteminTbl(prop.getProperty("AccountingDocumentTbl"), "100000000", "Journal Enry", 2, "Click");
@@ -112,38 +92,8 @@ public class JGLUseTable_TC1 extends BaseClass
 		Thread.sleep(2000);
 		AUTBusinessFlows.srchIteminTbl(prop.getProperty("JEDocumentImpactTbl"), "13711400 (WIP Acc Rev)", "GL Account", 3, "NA");
 		
-		AUTBusinessFlows.srchIteminTbl(prop.getProperty("JEDocumentImpactTbl"), "659.99", "Credit", 8,"NA");		
+		AUTBusinessFlows.srchIteminTbl(prop.getProperty("JEDocumentImpactTbl"), "659.99USD", "Credit", 8,"NA");		
 
-		/*displayJournalEntriesTacct_obj.type_JournalEntry_TXTBx("100000000/1710/0E/2024");
-		Thread.sleep(2000);		
-		displayJournalEntriesTacct_obj.click_goBtn();
-		Thread.sleep(2000);		
-		String debitAmount = displayJournalEntriesTacct_obj.get_debitSum();
-		if (debitAmount.equals("Debit: -659.99 USD"))
-		{
-			Log.info("Found debit amount equals: "+debitAmount);
-		}
-		else
-		{
-			Log.info("Did NOT find debit amount '-659.99 USD' equals: "+debitAmount);
-		}*/
-
-		/*WebElement element = getDriver().findElement(By.xpath("/*[contains(text(), 'Display Line Items in General Ledger')]"));
-		((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
-		Thread.sleep(500);*/ 		
-		
-		/*WebElement element = getDriver().findElement(By.xpath("//a[@title='Display Line Items in General Ledger']//div"));
-		Actions actions = new Actions(getDriver());
-		actions.moveToElement(element);
-		actions.perform();*/
-		//Actions action1 = new Actions(getDriver());
-		//action1.sendKeys(Keys.PAGE_DOWN).build().perform();
-		//System.out.println("Page down");
-		//Thread.sleep(2000);
-		//tAccountViewPg_obj.click_AccountsPayableOverview();
-		//tAccountViewPg_obj.click_DisplayLineItemsGL();
-		//tAccountViewPg_obj.click_StatementofChange();				
-		//tAccountViewPg_obj.click_DisplayJournalEntriesTAccountView();	
 	}
 	
 	

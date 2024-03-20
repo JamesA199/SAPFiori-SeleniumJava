@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 import org.apache.log4j.xml.DOMConfigurator;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -37,6 +38,11 @@ public class BaseClass extends ExtentReportListener
 	//public static WebDriver driver; 
 	public static Logger Logger;
 	
+	public static int warningCNT=0;
+	public static int failCNT=0;
+	public static int passCNT=0;
+	public static int errorCNT=0;
+	
 	//Declare ThreadLocal Driver Parallel testing using Java ThreadLocal Class
 	public static ThreadLocal<RemoteWebDriver> driver = new ThreadLocal<>();
 	public static WebDriver getDriver()
@@ -56,7 +62,7 @@ public class BaseClass extends ExtentReportListener
 	public void loadConfig()
 	{
 		ExtentManager.setExtent();
-		Logger = org.apache.log4j.Logger.getLogger("eCommStore");
+		Logger = org.apache.log4j.Logger.getLogger("SAPFiori");
 		PropertyConfigurator.configure("Log4j.properties");
 		DOMConfigurator.configure("log4j.xml");
 		try 
@@ -65,8 +71,8 @@ public class BaseClass extends ExtentReportListener
 			FileInputStream ip = new FileInputStream(
 				System.getProperty("user.dir") + "\\Configuration\\config.properties");
 			prop.load(ip);
-			Log.info("BeforeSuite Loaded config file: "+ System.getProperty("user.dir") + "\\Configuration\\config.properties");
-		
+			//AUTActions.LogIt("BeforeSuite Loaded config file: "+ System.getProperty("user.dir") + "\\Configuration\\config.properties", "INFO", "");
+			
 		} 
 		catch (FileNotFoundException e) 
 		{
@@ -111,27 +117,31 @@ public class BaseClass extends ExtentReportListener
 		}
 		
 		AUTActions.implicitWait(getDriver(), 10);
-		AUTActions.pageLoadTimeOut(getDriver(), 30);		
+		AUTActions.pageLoadTimeOut(30);		
 		getDriver().manage().window().maximize();
 		getDriver().manage().deleteAllCookies();
 		getDriver().get(prop.getProperty("url"));
-		Log.info("Browser "+browserName+" has been opened with URL: "+prop.getProperty("url"));
+		//AUTActions.LogIt("Browser "+browserName+" has been opened with URL: "+prop.getProperty("url"), "INFO", null);
 
 	}
 
-	/*@Parameters("browser")
-	@AfterMethod(groups = { "Smoke", "Sanity", "Regression", "DDT"  })
+	@Parameters("browser")
+	@AfterMethod(groups = {"Smoke", "Sanity", "Regression", "DDT"})
 	public void tearDown(String browser)
 	{
 		getDriver().quit();
 		AUTActions.LogIt(null, "Closed browser "+browser, "INFO");
-	}*/	
+
+		AUTActions.LogIt("Total Passed steps: "+passCNT, "INFO", "");
+		AUTActions.LogIt("Total Failed steps: "+failCNT, "INFO", "");
+		AUTActions.LogIt("Total warnings: "+warningCNT, "INFO", "");
+
+	}	
 	
 	@AfterSuite(groups = { "Smoke", "Sanity", "Regression", "DDT" })
 	public void aftersuite()
 	{
 		ExtentManager.endReport();
-		Log.info("AfterSuite ExtentManager.endReport");
-
+		AUTActions.LogIt("Closed ExtentManager.endReport", "INFO", "");
 	}
 }

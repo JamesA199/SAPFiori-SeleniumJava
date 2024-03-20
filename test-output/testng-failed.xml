@@ -12,14 +12,15 @@
       </run>
     </groups>
     <classes>
-      <class name="com.SAPFiori.Tests.JGLUseTiles_Filters_TC2">
+      <class name="com.SAPFiori.Tests.JGLUseTable_TC1">
         <methods>
           <include name="aftersuite"/>
-          <include name="JGLUseTiles_Filters_test"/>
           <include name="loadConfig"/>
+          <include name="JGLUseTable_test"/>
           <include name="setup"/>
+          <include name="tearDown"/>
         </methods>
-      </class> <!-- com.SAPFiori.Tests.JGLUseTiles_Filters_TC2 -->
+      </class> <!-- com.SAPFiori.Tests.JGLUseTable_TC1 -->
     </classes>
   </test> <!-- SAPFiori Test(failed) -->
 </suite> <!-- Failed suite [RegressionSuite1] -->

@@ -12,7 +12,7 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 //import java.io.IOException;
-import java.text.SimpleDateFormat;
+import java.text.*;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Date;
@@ -52,7 +52,7 @@ import com.SAPFiori.utilities.Log;
 //public class Action extends BaseClass implements ActionInterface {
 public class AUTActions extends BaseClass 
 {
-    
+   
 	public static void scrollByVisibilityOfElement(WebDriver driver, WebElement ele) 
 	{
 		JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -77,18 +77,17 @@ public class AUTActions extends BaseClass
 
 		  	if (strtabName.equals(getDriver().getTitle())) //check here if the tab name is correct if not fail
 			{
-		  		Log.info("Switched to tab '"+strtabName+"' using tab index of: "+tabIndex);
+		  		AUTActions.LogIt("*Switched to tab '"+strtabName+"' using tab index of: "+tabIndex, "PASS", null);
 			}
 		  	else
 		  	{
-		  		Log.warn("***Warning-switch to tab '"+strtabName+"', but the tab name does not match expected tab name: "+strtabName);
+		  		AUTActions.LogIt("***Warning-switch to tab '"+strtabName+"', but the tab name does not match expected tab name: "+strtabName, "WARNING", null);
 		  	}			
 
 		} 
 		catch (Exception e) //this is catching any assert errors e.g. out of bounds tab number due to incorrect index
 		{
-			Log.info("***Fail-Could NOT switch to tab '"+strtabName+"' using tab index of: "+tabIndex);
-			Assert.fail("***Fail-Could NOT switch to tab '"+strtabName+"' using tab index of: "+tabIndex);
+	  		AUTActions.LogIt("***Fail-Could NOT switch to tab '"+strtabName+"' using tab index of: "+tabIndex, "FAIL", null);
 		} 
 
 	}	
@@ -107,20 +106,19 @@ public class AUTActions extends BaseClass
 			
 		  	if (strtabName.equals(getDriver().getTitle())) //check here if the tab name is correct if not fail
 			{
-		  		Log.info("Switched to tab '"+strtabName+"' using tab index of: "+tabIndex);
+		  		AUTActions.LogIt("Switched to tab '"+strtabName+"' using tab index of: "+tabIndex, "PASS", null);
 			}
 		  	else
 		  	{
-		  		Log.warn("***Warning-switch to tab '"+strtabName+"'. Tab name does not match expected tab name: "+strtabName);
+		  		AUTActions.LogIt("*****Warning-switch to tab '"+strtabName+"'. Tab name does not match expected tab name: "+strtabName, "WARNING", null);
 		  	}	
 		  	
 			getDriver().switchTo().window(tabs.get(tabIndex)).close();
-			Log.info("Closed tab '"+strtabName+"' using tab index of: "+tabIndex);
+			AUTActions.LogIt("Closed tab '"+strtabName+"' using tab index of: "+tabIndex, "PASS", null);
 		} 
 		catch (Exception e) //this is catching any assert errors e.g. out of bounds tab number due to incorrect index
 		{
-			Log.info("***Fail-Could NOT close tab '"+strtabName+"' using tab index of: "+tabIndex);
-			Assert.fail("***Fail-Could NOT close tab '"+strtabName+"' using tab index of: "+tabIndex);
+			AUTActions.LogIt("***Fail-Could NOT close tab '"+strtabName+"' using tab index of: "+tabIndex, "FAIL", null);
 		} 
 	
 		//Get the current window title
@@ -143,34 +141,28 @@ public class AUTActions extends BaseClass
 
 	}		
 
-	public static void click(WebDriver driver, WebElement ele, String strWebElmentType) 
+	public static void click(WebElement ele, String strWebElmentType) 
 	{
 
 		boolean flag = false;
 		try {
-			AUTActions.explicitWait(getDriver(), ele, 60);
+			AUTActions.explicitWait(ele, 60);
 			flag = ele.isDisplayed();
-			Actions act = new Actions(driver);
+			Actions act = new Actions(getDriver());
 			act.moveToElement(ele).click().build().perform();
 			flag = true;
 
 		} catch (Exception e) {
-			AUTActions.LogIt(ele, "Is not displayed: "+strWebElmentType, "FAIL");
-			//Log.info("Is not displayed: "+strWebElmentType+" WebElement: "+ele);
-			//System.out.println("Is not displayed: "+strWebElmentType+" WebElement: "+ele);
+			AUTActions.LogIt("Is not displayed: "+strWebElmentType+". Webelement: "+ele.toString(), "FAIL", null);
+
 			flag = false;
 		} finally {
 			if (flag) {
 
-				//System.out.println("Clicked on "+strWebElmentType+" WebElement: "+ele);
-				//Log.info("Clicked on "+strWebElmentType+" WebElement: "+ele);
-				AUTActions.LogIt(ele, "Clicked on "+strWebElmentType, "INFO");
+				AUTActions.LogIt("Clicked on "+strWebElmentType+". Webelement: "+ele.toString(), "PASS", null);
 			} else {
-				AUTActions.LogIt(ele, "***Fail-Unable to click: "+strWebElmentType, "FAIL");
-				//System.out.println("Unable to click: "+strWebElmentType+" WebElement: "+ele);
-				//Log.info("***Fail-Unable to click: "+strWebElmentType+" WebElement: "+ele);
-	    		//Assert.assertTrue(false);
-	    		//Assert.fail("***Fail-Unable to click: "+strWebElmentType+" WebElement: "+ele);
+
+				AUTActions.LogIt("***Fail-Unable to click: "+strWebElmentType+". Webelement: "+ele.toString(), "FAIL", null);
 			}
 
 		}
@@ -225,32 +217,22 @@ public class AUTActions extends BaseClass
 	{
 		boolean flag = false;
 		try {
-			AUTActions.explicitWait(getDriver(), ele, 10);
+			AUTActions.explicitWait(ele, 10);
 			ele.isDisplayed();
 			flag = true;
 		} 
 		catch (Exception e) 
 		{
-			AUTActions.LogIt(ele, "***FAIL element NOT found: "+ele, "FAIL");
-			// System.out.println("Location not found: "+locatorName);
-			//Log.info("***FAIL Location NOT found element: "+ele);
-    		//test.log(LogStatus.ERROR, "***Fail-Location NOT found element: "+ele);
-    		//Assert.fail("***Fail-Location NOT found element: "+ele);
+			AUTActions.LogIt("***FAIL element NOT found: "+ele, "FAIL", null);
 			flag = false;
 		} finally {
 			if (flag) 
 			{
-				AUTActions.LogIt(ele, "Successfully found element at: "+ele, "PASS");
-				//System.out.println("Successfully Found element at");
-				//Log.info("Successfully Found element at: "+ele);
-	    		//test.log(LogStatus.PASS, "Successfully Found element at: "+ele);
+				AUTActions.LogIt("Successfully found element at: "+ele, "PASS", null);
+
 			} else 
 			{
-				AUTActions.LogIt(ele, "***Fail Unable to find element at: "+ele, "FAIL");
-				//System.out.println("Unable to locate element at");
-				//Log.info("***Fail-Unable to locate element at: "+ele);
-	    		//test.log(LogStatus.ERROR, "***Fail-unable to locate element at: "+ele);
-	    		//Assert.fail("***Fail-unable to locate element at: "+ele);
+				AUTActions.LogIt("***Fail Unable to find element at: "+ele, "FAIL", null);
 			}
 		}
 		return flag;
@@ -265,29 +247,17 @@ public class AUTActions extends BaseClass
 			flag = ele.isDisplayed();
 			if (flag) 
 			{
-				AUTActions.LogIt(ele, "The element is displayed: ", "PASS");
-				//System.out.println("The element is Displayed: "+ele);
-				//Log.info("The element is Displayed: "+ele);
-	    		//test.log(LogStatus.PASS, "The element is Displayed: "+ele);
-	    		
-				
+				AUTActions.LogIt("The element is displayed: "+ele.toString(), "PASS", null);
 			} 
 			else 
 			{
-				AUTActions.LogIt(ele, "***Fail-The element is NOT displayed: ", "FAIL");
-				//System.out.println("The element is NOT displayed: "+ele);
-				//Log.info("***Fail-The element is NOT displayed: "+ele);
-	    		//test.log(LogStatus.FAIL, "***Fail-The element is NOT displayed: "+ele);
-	    		//Assert.fail("***Fail-The element is NOT displayed: "+ele);
+				AUTActions.LogIt("***Fail-The element is NOT displayed: "+ele.toString(), "FAIL", null);
 			}
 		} 
 		else 
 		{
 			
-			AUTActions.LogIt(ele, "***Fail-The element could NOT be found: ", "FAIL");
-			//Log.info("***Fail-The element could NOT be found: "+ele);
-    		//test.log(LogStatus.FAIL, "***Fail-The element could NOT be found: "+ele);
-    		//Assert.fail("***Fail-The element could NOT be found: "+ele);
+			AUTActions.LogIt("***Fail-The element could NOT be found: "+ele.toString(), "FAIL", null);
 
 		}
 		return flag;
@@ -295,42 +265,37 @@ public class AUTActions extends BaseClass
 
 	public static boolean isSelected(WebDriver driver, WebElement ele) {
 		boolean flag = false;
-		AUTActions.explicitWait(getDriver(), ele, 10);
+		AUTActions.explicitWait(ele, 10);
 		flag = findElement(driver, ele);
 		if (flag) {
 			flag = ele.isSelected();
 			if (flag) {
 				//System.out.println("The element is Selected: "+ele);
 				Log.info("The element is selected: "+ele);
+				AUTActions.LogIt("The element is selected: "+ele.toString(), "PASS", null);
 			} else {
-				Log.info("***Fail-The element is NOT selected: "+ele);
-	    		Assert.fail("***Fail-The element could NOT selected: "+ele);
+				AUTActions.LogIt("***Fail-The element could NOT be selected: "+ele.toString(), "FAIL", null);
 			}
 		} else {
-			Log.info("***Fail-The element could NOT be found: "+ele);
-    		Assert.fail("***Fail-The element could NOT be found: "+ele);
+			AUTActions.LogIt("***Fail-The element could NOT be found: "+ele.toString(), "FAIL", null);
 		}
 		return flag;
 	}
 
 	public static boolean isEnabled(WebDriver driver, WebElement ele) {
 		boolean flag = false;
-		AUTActions.explicitWait(getDriver(), ele, 10);
+		AUTActions.explicitWait(ele, 10);
 		flag = findElement(driver, ele);
 		if (flag) {
 			flag = ele.isEnabled();
 			if (flag) {
 				//System.out.println("The element is Enabled: "+ele);
-				Log.info("The element is Enabled: "+ele);
+				AUTActions.LogIt("The element is Enabled: "+ele, "PASS", null);
 			} else {
-				//System.out.println("The element is not Enabled: "+ele);
-				Log.info("***Fail-The element is not Enabled: "+ele);
-	    		Assert.fail("***Fail-The element is not Enabled: "+ele);
+				AUTActions.LogIt("***Fail-The element is not Enabled: "+ele, "FAIL", null);
 			}
 		} else {
-			System.out.println("Not Enabled "+ele);
-			Log.info("The element could NOT be found: "+ele);
-    		Assert.fail();
+			AUTActions.LogIt("***Fail-The element is not found: "+ele, "FAIL", null);
 		}
 		return flag;
 	}
@@ -347,32 +312,26 @@ public class AUTActions extends BaseClass
 		boolean flag = false;
 
 		try {
-			AUTActions.explicitWait(getDriver(), ele, 10);
+			AUTActions.explicitWait(ele, 10);
 			flag = ele.isDisplayed();
 			ele.click();
 			ele.clear();
 			ele.sendKeys(text);
-			// logger.info("Entered text :"+text);
 			flag = true;
 		} catch (Exception e) {
-			AUTActions.LogIt(null, "Location NOT found: "+ele, "FAIL");   		
+			AUTActions.LogIt("Location NOT found: "+ele, "FAIL", null);   		
 			flag = false;
 		} finally {
 			if (flag) {
-				//System.out.println("Successfully entered value: "+text+", into: "+ele);
-				//Log.info("Typed text: "+text+", into: "+ele);
-				AUTActions.LogIt(null, "Typed text: "+text+", into: "+ele, "PASS");	    				
+				AUTActions.LogIt("Typed text '"+text+"' into: "+ele.toString(), "PASS", null);	    				
 			} else {
-				//System.out.println("Unable to enter value: "+text+", into: "+ele);
-				//Log.info("Unable to type text: "+text+", into: "+ele);
-	    		//Assert.fail("Unable to type text: "+text+", into: "+ele);
-				AUTActions.LogIt(null, "Unable to type text: "+text+", into: "+ele, "FAIL");	 
+				AUTActions.LogIt("***Fail Unable to type into: "+ele.toString(), "FAIL", null);	 
 			}
 		}
 		return flag;
 	}
 
-	public boolean selectBySendkeys(String value,WebElement ele) {
+	public boolean selectBySendkeys(String value, WebElement ele) {
 		boolean flag = false;
 		try {
 			ele.sendKeys(value);
@@ -383,9 +342,9 @@ public class AUTActions extends BaseClass
 			return false;
 		} finally {
 			if (flag) {
-				System.out.println("Select value from the DropDown");		
+				AUTActions.LogIt("Selected '"+value+"' from the DropDown. WebElement: "+ele.toString(), "PASS", null);	 
 			} else {
-				System.out.println("Not Selected value from the DropDown");
+				AUTActions.LogIt("***Fail Not selected value from the DropDown. WebElement: "+ele.toString(), "FAIL", null);	 
 				// throw new ElementNotFoundException("", "", "")
 			}
 		}
@@ -414,9 +373,9 @@ public class AUTActions extends BaseClass
 			return false;
 		} finally {
 			if (flag) {
-				System.out.println("Option selected by Index");
+				AUTActions.LogIt("Option selected by index: "+index+". WebElement: "+element.toString(), "PASS", null);	 
 			} else {
-				System.out.println("Option not selected by Index");
+				AUTActions.LogIt("Option NOT selected by Index: "+index+". WebElement: "+element.toString(), "FAIL", null);	 
 			}
 		}
 	}
@@ -445,9 +404,9 @@ public class AUTActions extends BaseClass
 			return false;
 		} finally {
 			if (flag) {
-				System.out.println("Option selected by Value");
+				AUTActions.LogIt("Option selected by value: "+value+". WebElement: "+element.toString(), "PASS", null);	 
 			} else {
-				System.out.println("Option not selected by Value");
+				AUTActions.LogIt("Option NOT selected by value: "+value+". WebElement: "+element.toString(), "FAIL", null);	 
 			}
 		}
 	}
@@ -475,15 +434,14 @@ public class AUTActions extends BaseClass
 			return false;
 		} finally {
 			if (flag) {
-				//Log.info("Select "+strWebElementType+" item: "+visibletext+" WebElement: "+ele);
+				AUTActions.LogIt("Selected "+strWebElementType+" item: "+visibletext+" WebElement: "+ele.toString(), "PASS", null);
 			} else {
-				//Log.info("Could NOT select "+strWebElementType+" item: "+visibletext+" WebElement: "+ele);
-	    		Assert.fail();
+				AUTActions.LogIt("***FAIL Could NOT select '"+strWebElementType+"' item: "+visibletext+". WebElement: "+ele.toString(), "FAIL", null);	 
 			}
 		}
 	}
 
-	public static boolean mouseHoverByJavaScript(WebElement ele, String sWebElement) {
+	public static boolean mouseHoverByJavaScript(WebElement ele, String strWebElement) {
 		boolean flag = false;
 		try {
 			WebElement mo = ele;
@@ -501,9 +459,9 @@ public class AUTActions extends BaseClass
 			return false;
 		} finally {
 			if (flag) {
-				System.out.println("Performed Mouse Hover over "+ele+" "+sWebElement);
+				AUTActions.LogIt("Performed Mouse Hover over: "+strWebElement+". WebElement: "+ele.toString(), "PASS", null);
 			} else {
-				System.out.println("Could NOT perform a Mouse Hover over "+ele+" "+sWebElement);
+				AUTActions.LogIt("Could NOT Perform Mouse Hover over: "+strWebElement+". WebElement: "+ele.toString(), "FAIL", null);
 			}
 		}
 	}
@@ -535,7 +493,7 @@ public class AUTActions extends BaseClass
 	public boolean switchToFrameByIndex(WebDriver driver,int index) {
 		boolean flag = false;
 		try {
-			new WebDriverWait(driver, null).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//iframe")));
+			new WebDriverWait(getDriver(), null).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//iframe")));
 			//new WebDriverWait(driver, 15).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//iframe")));
 			driver.switchTo().frame(index);
 			flag = true;
@@ -922,7 +880,8 @@ public class AUTActions extends BaseClass
 	}
 	
 
-	public String getCurrentURL(WebDriver driver)  {
+	public String getCurrentURL(WebDriver driver)  
+	{
 		boolean flag = false;
 
 		String text = driver.getCurrentUrl();
@@ -972,19 +931,30 @@ public class AUTActions extends BaseClass
 		System.out.println("implicitWait...: "+ iTime);
 	}
 
-	public static void explicitWait(WebDriver driver, WebElement element, long iTime ) {
-		WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(iTime));
+	public static void explicitWait(WebElement element, long iTime ) 
+	{
+		WebDriverWait wait = new WebDriverWait(getDriver(),Duration.ofSeconds(iTime));
 		wait.until(ExpectedConditions.visibilityOf(element));
+		//Log.info("explicitWait...");
 	}
 
-	public static void pageLoadTimeOut(WebDriver driver, long iTime) {
-		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(iTime));
+	
+	public static void explicitWaitbyWE(String webLocater, long iTime) throws InterruptedException 
+	{
+		WebElement oWebElement = getDriver().findElement(By.xpath(webLocater));	
+		WebDriverWait wait = new WebDriverWait(getDriver(),Duration.ofSeconds(iTime));
+		wait.until(ExpectedConditions.visibilityOf(oWebElement));
+	}
+	
+	public static void pageLoadTimeOut(long iTime) {
+		getDriver().manage().timeouts().pageLoadTimeout(Duration.ofSeconds(iTime));
 		//System.out.println("pageLoadTimeOut...: "+ iTime);
 		//driver.manage().timeouts().pageLoadTimeout(timeOut);
 	}
 
 	public static String screenShot(WebDriver driver, String filename) {
-		String dateName = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
+		//String dateName = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
+		String dateName = AUTActions.randomeNum(4)+AUTActions.randomestring(4);
 		TakesScreenshot takesScreenshot = (TakesScreenshot) driver;
 		File source = takesScreenshot.getScreenshotAs(OutputType.FILE);
 		String destination = System.getProperty("user.dir") + "\\ScreenShots\\" +driver.getClass()+"_"+ filename + "_" + dateName + ".png";
@@ -1000,8 +970,10 @@ public class AUTActions extends BaseClass
 		return newImageString;
 	}
 
-	public String getCurrentTime() {
-		String currentDate = new SimpleDateFormat("yyyy-MM-dd-hhmmss").format(new Date());
+	public String getCurrentTime() 
+	{
+		//String currentDate = new SimpleDateFormat("yyyy-MM-dd-hhmmss").format(new Date());
+		String currentDate = "03/19/2024";
 		return currentDate;
 	}
 
@@ -1103,8 +1075,8 @@ public class AUTActions extends BaseClass
     	
     	try
     	{
-        	boolean bdownloadFlag = wait.until(f -> f.exists()&& f.canRead());
-        	if (bdownloadFlag)
+        	boolean bDownloadFlag = wait.until(f -> f.exists()&& f.canRead());
+        	if (bDownloadFlag)
         	{
         		//Log.info("File has completed downloading: "+strFileName);
         	}
@@ -1117,42 +1089,42 @@ public class AUTActions extends BaseClass
 		//Log.info("Checking for file in download folder: "+strFileName);		
 		File folder = new File(strDownLoadFolder);
 		File[] listOfFiles = folder.listFiles();
-		boolean checkForFile = false;
+		boolean bCheckForFile = false;
 		for (File listOfFile : listOfFiles)
 		{
 			if (listOfFile.isFile())
 			{
-				String fileName = listOfFile.getName();
-				if (fileName.matches(strFileName)) 
+				String strFileName1 = listOfFile.getName();
+				if (strFileName1.matches(strFileName)) 
 				{
 					//Log.info("Found file: "+strFileName+" in folder: "+strDownLoadFolder);	
-					checkForFile = true;
+					bCheckForFile = true;
 				}
 			}
 		}
 		
-		if (checkForFile == false)
+		if (bCheckForFile == false)
 		{ 
 			//Log.info("File "+strFileName+" has been downloaded, but could not be found in download folder: "+strDownLoadFolder+", "+strFileName);	
 		}
 		
-		return checkForFile;
+		return bCheckForFile;
 	}
 	//***dangerous...know what folder you are deleting content from!!!!!!*****
-	public static void cleanFolder(String strfileDownLoadLocation) throws IOException
+	public static void cleanFolder(String strFileDownLoadLocation) throws IOException
 	{
-		File directory = new File(strfileDownLoadLocation);
+		File directory = new File(strFileDownLoadLocation);
 		FileUtils.cleanDirectory(directory);	
 		//AUTActions.LogIt(null, "Directory has been cleaned", "INFO");
 	}		
 	
 	//read and return PDF content for verification
-	public static String readPdfContent(String url, Boolean bFlagcontent) throws IOException 
+	public static String readPdfContent(String strUrl, Boolean bFlagcontent) throws IOException 
 	{
 		//System.out.println("getInputStream");		
-		//URI pdfUrl = Paths.get(url).toUri() ;
+		//URI pdfUrl = Paths.get(strUrl).toUri() ;
 		
-		URL pdfUrl = new URL(url);
+		URL pdfUrl = new URL(strUrl);
 
 		InputStream in = pdfUrl.openStream();
 		BufferedInputStream bf = new BufferedInputStream(in);
@@ -1160,7 +1132,7 @@ public class AUTActions extends BaseClass
 		String content = new PDFTextStripper().getText(doc);
 		if (bFlagcontent)
 		{
-			int totalPDFPages = getPageCount(doc);
+			int iTotalPDFPages = getPageCount(doc);
 			//Assert.assertEquals(totalPDFPages, 47);
 			//AUTActions.LogIt(null, "The total number of pages "+totalPDFPages, "INFO");
 			//AUTActions.LogIt(null, "***Begin writing out PDF content***", "INFO");
@@ -1171,8 +1143,6 @@ public class AUTActions extends BaseClass
 		doc.close();
 	
 		return content;
-	
-	
 	}
 
 	public static int getPageCount(PDDocument doc) 
@@ -1185,7 +1155,8 @@ public class AUTActions extends BaseClass
 	
 	public static String capture(WebDriver driver, String screeshotname) throws IOException 
 	{
-		String timeStamp1 = new SimpleDateFormat("mm-ss").format(new Date());//time stamp
+		//String timeStamp1 = new SimpleDateFormat("mm-ss").format(new Date());//time stamp
+		String timeStamp1 = AUTActions.randomeNum(4)+AUTActions.randomestring(4);
 		File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 		File Dest = new File("src/../test-output/AutoReport/Screenshots/" + screeshotname+"_"+timeStamp1+".png");
 		String errflpath = Dest.getAbsolutePath();
@@ -1196,7 +1167,8 @@ public class AUTActions extends BaseClass
 
 	public static String capture1(WebDriver driver) throws IOException 
 	{
-		String timeStamp1 = new SimpleDateFormat("mm-ss").format(new Date());//time stamp
+		//String timeStamp1 = new SimpleDateFormat("mm-ss").format(new Date());//time stamp
+		String timeStamp1 = AUTActions.randomeNum(4)+AUTActions.randomestring(4);
 		File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 		File Dest = new File("src/../test-output/AutoReport/Screenshots/-"+timeStamp1+".png");
 		String errflpath = Dest.getAbsolutePath();
@@ -1219,74 +1191,122 @@ public class AUTActions extends BaseClass
 	  // return ste[ste.length - depth].getMethodName();  //Wrong, fails for depth = 0
 	  return ste[ste.length - 1 - depth].getMethodName(); //Thank you Tom Tresansky
 	}
-	public static void useKeyBoard(String key) throws InterruptedException
-	{	
+	public static void useKeyBoard(String strKey, int iN) throws InterruptedException
+	{
+		int i;
 		Actions keyType = new Actions(getDriver());
-		if (key.equals("SPACE"))
-		{
-			keyType.sendKeys(Keys.SPACE).build().perform();
+		Log.info("Used keyboard: "+strKey);
+		for (i=1;i<=iN;i++)
+		{		
+			if (strKey.equals("SPACE"))
+			{
+				keyType.sendKeys(Keys.SPACE).build().perform();
+
+			}
+			else if(strKey.equals("ENTER")) 
+			{
+	
+				keyType.sendKeys(Keys.ENTER).build().perform();
+
+			}
+			else if(strKey.equals("ESCAPE")) 
+			{
+	
+				keyType.sendKeys(Keys.ESCAPE).build().perform();
+
+			}	
+			else if(strKey.equals("ARROWDOWN")) 
+			{
+				keyType.sendKeys(Keys.ARROW_DOWN).build().perform();
+
+										
+			}	
+			Thread.sleep(100);
 		}
-		else if(key.equals("ENTER")) 
-		{
-			keyType.sendKeys(Keys.ENTER).build().perform();
-		}
-		else if(key.equals("ESCAPE")) 
-		{
-			keyType.sendKeys(Keys.ESCAPE).build().perform();
-		}		
-		test.log(LogStatus.INFO,"Used keyboard: "+key);
-		Thread.sleep(2000);
+
+		Thread.sleep(1000);
 	}
 		
-	public static void LogIt(WebElement element, String strMsg, String strStatus)
+	public static void LogIt(String strMsg, String strStatus, String strWebElement)
 	{
-		
+
 		if (strStatus.equals("PASS")) 
 		{
-			System.out.println("PASS "+strMsg+" "+element);
-			Log.info("PASS "+strMsg+" "+element); //log4j
-			test.log(LogStatus.PASS, strMsg+" "+element);
+			passCNT++; //public var set in BaseClass
+			//System.out.println("PASS "+strMsg+" "+element);
+			Log.info("PASS "+strMsg+" "+strWebElement); //log4j
+			test.log(LogStatus.PASS, strMsg+" "+strWebElement);
 		} 
 		else if(strStatus.equals("INFO")) 
 		{
-			System.out.println("INFO "+strMsg+" "+element);
-			Log.info("INFO "+strMsg+" "+element);
-			test.log(LogStatus.INFO, strMsg+" "+element);
-
+			//System.out.println("INFO "+strMsg+" "+element);
+			Log.info("INFO "+strMsg+" "+strWebElement);
+			test.log(LogStatus.INFO, strMsg+" "+strWebElement);
+	
 		}		
+		else if(strStatus.equals("SCNCAP")) 
+		{
+			//System.out.println("INFO "+strMsg+" "+element);
+			Log.info("INFO ScreenShot taken "+strMsg+"'");
+			test.log(LogStatus.INFO, "ScreenShot taken... '"+strMsg+"'");	
+			try {
+				//test.addScreenCapture(ElementActions.capture(BaseClass.getDriver()));
+				test.log(LogStatus.INFO,test.addScreenCapture(AUTActions.capture(getDriver(), strMsg)));	
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}			
 		else if(strStatus.equals("FAIL")) 
 		{
-			System.out.println("***FAIL "+strMsg+" "+element);
-			Log.info("***FAIL "+strMsg+" "+element);
-			test.log(LogStatus.FAIL, strMsg+" "+element);
-			Assert.fail("***FAIL "+strMsg+" "+element);
+			
+			failCNT++; //public var set in BaseClass
+			//System.out.println("***FAIL "+strMsg+" "+oElement);
+			Log.info("***FAIL "+strMsg+" "+strWebElement);
+			test.log(LogStatus.FAIL, strMsg+" "+strWebElement);
+			Assert.fail("***FAIL "+strMsg+" "+strWebElement);
+			
 		}
 		else if(strStatus.equals("ERROR")) 
 		{
-			System.out.println("***ERROR "+strMsg+" "+element);
-			Log.info("***ERROR "+strMsg+" "+element);
-			test.log(LogStatus.ERROR, strMsg+" "+element);
-			Assert.fail("***ERROR "+strMsg+" "+element);
+			errorCNT++; //public var set in BaseClass
+			//System.out.println("***ERROR "+strMsg+" "+oElement);
+			Log.info("***ERROR "+strMsg+" "+strWebElement);
+			test.log(LogStatus.ERROR, strMsg+" "+strWebElement);
+			Assert.fail("***ERROR "+strMsg+" "+strWebElement);
 		}
 		else if(strStatus.equals("WARNING")) 
 		{
-			System.out.println("***WARNING "+strMsg+" "+element);
-			Log.warn("***WARNING "+strMsg+" "+element);
-			test.log(LogStatus.WARNING, strMsg+" "+element);
+			warningCNT++; //public var set in BaseClass
+			//System.out.println("***WARNING "+strMsg+" "+oElement);
+			Log.warn("***WARNING "+strMsg+" "+strWebElement);
+			test.log(LogStatus.WARNING, strMsg+" "+strWebElement);
+			//test.log(LogStatus.WARNING, "ScreenShot taken... '"+strMsg+"'");	
+			try {
+				//test.addScreenCapture(ElementActions.capture(BaseClass.getDriver()));
+				test.log(LogStatus.WARNING,test.addScreenCapture(AUTActions.capture(getDriver(), "warning-ScrnCap")));	
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
 		}
 		else if(strStatus.equals("STARTTC")) 
 		{
-			System.out.println(strMsg);
+			//System.out.println(strMsg);
 			Log.startTestCase(strMsg);
 			test.log(LogStatus.INFO, strMsg);
 		}
 		else if(strStatus.equals("ENDTC")) 
 		{
-			System.out.println(strMsg);
+			//System.out.println(strMsg);
 			Log.endTestCase(strMsg);
 			test.log(LogStatus.INFO, strMsg);
 		}
-	}	
-	
-	
+	}
+
 }
